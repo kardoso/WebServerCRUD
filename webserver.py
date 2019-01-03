@@ -48,8 +48,8 @@ class WebServerHandler(BaseHTTPRequestHandler):
                     output += res.name
                     output += "</p>"
                     output += "<div id='links'>"
-                    output += '''<a href='#'>
-                                Edit</a>'''
+                    output += '''<a href='/restaurants/%s/edit'>
+                                Edit</a>''' % res.id
                     output += '''<a href='#'>
                                 Delete</a>'''
                     output += "</div></div>"
@@ -83,6 +83,41 @@ class WebServerHandler(BaseHTTPRequestHandler):
                                 </div>'''
                 output += "</body></html>"
                 self.wfile.write(bytes(output, "utf8"))
+
+            # editar rastaurantes
+            elif self.path.endswith("/edit"):
+                # dividir caminho pelo "/" e pegar o segundo item
+                restaurant_id = self.path.split("/")[2]
+
+                restaurant = session.query(
+                                    Restaurant).filter_by(
+                                                id=restaurant_id).one()
+
+                if restaurant:
+                    self.send_response(200)
+                    self.send_header('Content-type', 'text/html')
+                    self.end_headers()
+                    output = ""
+                    output += "<html>"
+                    output += "<head>"
+                    output += "</head>"
+                    output += '''<body>
+                                    <div class="container">
+                                        <h1>Edit %s</h1>
+                                        <form method='POST'
+                                        enctype='multipart/form-data'
+                                        action'/restaurants/%s/edit'>
+                                            <input name='newRestaurantName'
+                                            type='text' placeholder="%s">
+                                            <input type='submit' value='Save'
+                                            class='button'>
+                                        </form>
+                                    </div>''' % (restaurant.name,
+                                                 restaurant_id,
+                                                 restaurant.name)
+                    output += "</body></html>"
+                    self.wfile.write(bytes(output, "utf8"))
+
         except IOError:
             self.send_error(404, 'File Not Found: %s' % self.path)
 
@@ -108,6 +143,31 @@ class WebServerHandler(BaseHTTPRequestHandler):
                     session.commit()
 
                     # Redirecionar
+                    self.send_response(301)
+                    self.send_header('Content-type', 'text/html')
+                    self.send_header('Location', '/restaurants')
+                    self.end_headers()
+
+            # Editar restaurantes
+            elif self.path.endswith("/edit"):
+                ctype, pdict = cgi.parse_header(self.headers.get
+                                                ('content-type'))
+                pdict['boundary'] = bytes(pdict['boundary'], "utf-8")
+                # verificar se os dados estão sendo recebidos
+                if ctype == 'multipart/form-data':
+                    restaurant_id = self.path.split("/")[2]
+                    # Coletar todos os campos de um formulário
+                    fields = cgi.parse_multipart(self.rfile, pdict)
+                    # Pegar o valor de um campo específico
+                    messagecontent = fields.get('newRestaurantName')
+                    message = messagecontent[0].decode("utf-8")
+
+                    restaurant = session.query(
+                                Restaurant).filter_by(id=restaurant_id).one()
+                    restaurant.name = message
+                    session.add(restaurant)
+                    session.commit()
+
                     self.send_response(301)
                     self.send_header('Content-type', 'text/html')
                     self.send_header('Location', '/restaurants')

@@ -10,6 +10,132 @@ from sqlalchemy.orm import sessionmaker
 # importar classes do arquivo "database_setup"
 from database_setup import Restaurant, Base, MenuItem
 
+#estilo para a página principal
+mainstyle = '''<style>
+                    body{
+                        margin: 0 auto;
+                        background-image: linear-gradient(to bottom right, #80348F, #A73399, #CD338C);
+                    }
+                    .header {
+                        margin: 0 auto;
+                        text-align: center;
+                        vertical-align: center;
+                        color: white;
+                        background: rgba(38, 0, 31, 0.9);
+                        position: fixed;
+                        top: 0;
+                        width: 100%;
+                        z-index: 1;
+                    }
+                    .restaurants-container{
+                        margin: 0 auto;
+                        margin-top: 150px;
+                        width: 80%;
+                        display: flex;
+                        flex-flow: wrap;
+                        justify-content: center;
+                    }
+                    .restaurant {
+                        background: rgba(0, 0, 0, 0.4);
+                        box-shadow: 0 1px 9px 0 rgba(0, 0, 0, 0.2);
+                        color: white;
+                        font-weight: bold;
+                        border-radius: 25px;
+                        margin: 0.5em;
+                        min-height: 200px;
+                        flex: 0 1 200px;
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;
+                        align-items: center;
+                        text-align: center;
+                    }
+                    .restaurant #links {
+                        align-self: flex-end;
+                        width: 100%;
+                        display: flex;
+                        justify-content: center;
+                    }
+                    .restaurant #links a {
+                        margin: 10px auto;
+                    }
+                    a {
+                        color: white;
+                        opacity: 0.6;
+                    }
+                    </style>'''
+
+#estilo para as outras páginas
+editstyle = '''<style>
+                    body{
+                        margin: 0 auto;
+                        background-image: linear-gradient(to bottom right, #80348F, #A73399, #CD338C);
+                        display: flex;
+                        justify-content: center;
+                    }
+                    .container {
+                        background: rgba(0, 0, 0, 0.4);
+                        box-shadow: 0 1px 9px 0 rgba(0, 0, 0, 0.2);
+                        color: white;
+                        font-weight: bold;
+                        border-radius: 25px;
+                        height: 200px;
+                        min-height: 100px;
+                        width: 40%;
+                        min-width: 300px;
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;
+                        align-items: center;
+                        align-self: center;
+                    }
+                    .button {
+                        -webkit-transition-duration: 0.4s; /* Safari */
+                        transition-duration: 0.4s;
+                        background-color: #D1008C;
+                        border: none;
+                        outline: none;
+                        color: white;
+                        padding: 15px 32px;
+                        border-radius: 25px;
+                        text-align: center;
+                        text-decoration: none;
+                        display: inline-block;
+                        font-size: 16px;
+                    }
+                    .button:hover {
+                        background-color: #4F003D;
+                        border: none;
+                        color: white;
+                        padding: 15px 32px;
+                        border-radius: 15px;
+                        text-align: center;
+                        text-decoration: none;
+                        display: inline-block;
+                        font-size: 16px;
+                        cursor: pointer;
+                    }
+                    input[type=text] {
+                        -webkit-transition-duration: 0.4s; /* Safari */
+                        transition-duration: 0.4s;
+                        background-color: white;
+                        border: none;
+                        color: #26001F;
+                        outline: none;
+                        padding: 15px 32px;
+                        border-radius: 15px;
+                        text-align: center;
+                        font-size: 16px;
+                    }
+                    input[type=text]:focus {
+                        background-color: #26001F;
+                        color: white;
+                    }
+                    ::placeholder {
+                        color: #26001F;
+                    }
+                    </style>'''
+
 # selecionar banco de dados
 engine = create_engine('sqlite:///restaurantmenu.db')
 # estabelecer conexão
@@ -31,6 +157,7 @@ class WebServerHandler(BaseHTTPRequestHandler):
 
                 output = ""
                 output += "<head>"
+                output += mainstyle
                 output += "</head>"
                 output += '''<body>
                                 <div class="header">
@@ -67,6 +194,7 @@ class WebServerHandler(BaseHTTPRequestHandler):
                 output = ""
                 output += "<html>"
                 output += "<head>"
+                output += editstyle
                 output += "</head>"
                 output += '''<body>
                                 <div class="container">
@@ -100,6 +228,7 @@ class WebServerHandler(BaseHTTPRequestHandler):
                     output = ""
                     output += "<html>"
                     output += "<head>"
+                    output += editstyle
                     output += "</head>"
                     output += '''<body>
                                     <div class="container">
@@ -133,6 +262,7 @@ class WebServerHandler(BaseHTTPRequestHandler):
                     output = ""
                     output += "<html>"
                     output += "<head>"
+                    output += editstyle
                     output += "</head>"
                     output += '''<body>
                                     <div class="container">

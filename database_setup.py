@@ -1,24 +1,20 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-#
-# Configuração
-
-#manipular runtime
-import sys
-#importar classes para escrever o mapeador
+# importar classes para escrever o mapeador
 from sqlalchemy import Column, ForeignKey, Integer, String
-#daclarative_base é usada na configuração e no código de classe
+# daclarative_base é usada na configuração e no código de classe
 from sqlalchemy.ext.declarative import declarative_base
-#para criar relação de chave estrangeira, usada também no mapeador
+# para criar relação de chave estrangeira, usada também no mapeador
 from sqlalchemy.orm import relationship
-#usada no fim do arquivo para configuração
+# usada no fim do arquivo para configuração
 from sqlalchemy import create_engine
 
 
 Base = declarative_base()
 
 # Classes
+
 
 class Restaurant(Base):
     # Tabelas
@@ -27,11 +23,11 @@ class Restaurant(Base):
     # Mapeadores
     name = Column(
         String(80),
-        nullable = False
+        nullable=False
     )
     id = Column(
         Integer,
-        primary_key = True
+        primary_key=True
     )
 
 
@@ -42,11 +38,11 @@ class MenuItem(Base):
     # Mapeadores
     name = Column(
         String(80),
-        nullable = False
+        nullable=False
     )
     id = Column(
         Integer,
-        primary_key = True
+        primary_key=True
     )
     course = Column(
         String(250)
@@ -63,9 +59,10 @@ class MenuItem(Base):
     )
     restaurant = relationship(Restaurant)
 
+
 # Configuração
 
-#indicar o banco de dadaos que será usado
+# indicar o banco de dadaos que será usado
 engine = create_engine('sqlite:///restaurantmenu.db')
-#acessar o banco de dados e adicionar as tabelas criadas
+# acessar o banco de dados e adicionar as tabelas criadas
 Base.metadata.create_all(engine)

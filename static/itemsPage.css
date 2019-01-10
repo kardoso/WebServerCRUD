@@ -1,0 +1,57 @@
+body{
+    margin: 0 auto;
+    background-image: linear-gradient(to bottom right, #80348F, #A73399, #CD338C);
+}
+
+.header {
+    margin: 0 auto;
+    text-align: center;
+    vertical-align: center;
+    color: white;
+    background: rgba(38, 0, 31, 0.9);
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1;
+}
+
+.restaurants-container{
+    margin: 0 auto;
+    margin-top: 150px;
+    width: 80%;
+    display: flex;
+    flex-flow: wrap;
+    justify-content: center;
+}
+
+.restaurant {
+    background: rgba(0, 0, 0, 0.4);
+    box-shadow: 0 1px 9px 0 rgba(0, 0, 0, 0.2);
+    color: white;
+    font-weight: bold;
+    border-radius: 25px;
+    margin: 0.5em;
+    min-height: 200px;
+    flex: 0 1 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.restaurant #links {
+    align-self: flex-end;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.restaurant #links a {
+    margin: 10px auto;
+}
+
+a {
+    color: white;
+    opacity: 0.6;
+}

@@ -8,6 +8,7 @@
             <form action="{{ url_for('mainRestaurants') }}" method = 'POST'>
                 <input name='name' type='text' placeholder="Restaurant name">
                 <input type='submit' value='Register' class='button'>
+                <a href = "{{ url_for('mainRestaurants') }}", class='button'>Cancel</a>
             </form>
         </div>
     </body>

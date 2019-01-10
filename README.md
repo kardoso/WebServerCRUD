@@ -1,12 +1,13 @@
 # Web Server CRUD
 Um web server para acessar e manipular um banco de dados com operações CRUD através do navegador.
 
-O website acessa o banco de dados contendo nomes de restaurantes e os mostra na página `localhost:8080/restaurants`<br>
+O website acessa o banco de dados contendo nomes de restaurantes e os mostra na página `localhost:5000`<br>
 A partir dessa página é possível adicionar novos restaurantes ao banco de dados, editá-los e excluí-los.
 
 ## Requerimentos
 - [Python 3](https://www.python.org/downloads/release/python-371/)
 - [SQLAlchemy](https://www.sqlalchemy.org/) - Use o comando `pip install sqlalchemy` para instalar
+- [Flask](http://flask.pocoo.org) - Use o comando `pip install Flask` para instalar
 - [Vagrant](https://www.vagrantup.com) - Ambiente de desenvolvimento - 
 Baixe o arquivo com a máquina configurada [aqui](https://d17h27t6h515a5.cloudfront.net/topher/2017/June/5948287e_fsnd-virtual-machine/fsnd-virtual-machine.zip)
 - [Virtual Box](https://www.virtualbox.org/wiki/Downloads) - Para rodar a VM vagrant
@@ -23,6 +24,6 @@ Com a pasta vagrant aberta em um terminal insira o comando `vagrant up` para lig
 
 Vá até a pasta compartilhada com o comando `cd /vagrant`.
 
-E execute o arquivo python com `python webserver.py` ou `python3 webserver.py`
+E execute o arquivo webserver.py com `python webserver.py` ou `python3 webserver.py`
 
-Agora você é possível acessar o endereço `localhost:8080/restaurants` através do web browser acessando e manipulando os dados do banco de dados.
+Agora é possível acessar o endereço `localhost:5000` através do web browser para acessar e manipular os dados do banco de dados visualmente em um ambiente web.

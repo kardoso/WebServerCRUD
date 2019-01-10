@@ -15,12 +15,12 @@
             <div class='restaurant'>
                 <p>{{r.name}}</p>
                 <div id='links'>
-                    <a href = "{{ url_for('editRestaurant', restaurant_id = restaurant.id) }}">Edit</a>
-                    <a href = "{{ url_for('deleteRestaurant', restaurant_id = restaurant.id) }}">Delete</a>
+                    <a href = "{{ url_for('editRestaurant', restaurant_id = r.id) }}">Edit</a>
+                    <a href = "{{ url_for('deleteRestaurant', restaurant_id = r.id) }}">Delete</a>
                 </div>
             </div>
             {% endfor %}
-            
+
         </div>
     </body>
 </html>

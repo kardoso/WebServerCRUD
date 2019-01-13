@@ -15,9 +15,31 @@ body{
     z-index: 1;
 }
 
+.add{
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    margin: 0 auto;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.4);
+    color: aa3398;
+    margin-top: 100px;
+    border-radius: 25px;
+    width: 10%;
+    min-height: 100px;
+    min-width: 200px;
+    display: flex;
+    font-size: 32px;
+    text-decoration: none;
+    justify-content: center;
+}
+.add:hover{
+    background-color: #00ff6a ;
+    color: #ffffff;
+    font-size: 48px;
+}
+
 .restaurants-container{
     margin: 0 auto;
-    margin-top: 150px;
     width: 80%;
     display: flex;
     flex-flow: wrap;

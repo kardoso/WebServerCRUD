@@ -76,6 +76,22 @@ def deleteRestaurant(restaurant_id):
                                restaurant_id=restaurant_id,
                                restaurant=restaurantToDelete)
 
+@app.route('/restaurants/<int:restaurant_id>')
+@app.route('/restaurants/<int:restaurant_id>/menu')
+def showMenu(restaurant_id):
+    return "menu"
+
+@app.route('/restaurants/<int:restaurant_id>/menu/new')
+def newMenuItem(restaurant_id):
+    return "new item"
+
+@app.route('/restaurants/<int:restaurant_id>/menu/<int:menu_id>/edit')
+def editMenuItem(restaurant_id, menu_id):
+    return "edit item"
+
+@app.route('/restaurants/<int:restaurant_id>/menu/<int:menu_id>/delete')
+def deleteMenuItem(restaurant_id, menu_id):
+    return "delete item"
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))

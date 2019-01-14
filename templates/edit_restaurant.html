@@ -1,15 +1,17 @@
 <html>
     <head>
-        <link rel=stylesheet type=text/css href="{{ url_for('static', filename='editPage.css') }}">
+        <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
     </head>
     <body>
-        <div class="container">
-            <h1>Edit {{restaurant.name}}</h1>
-            <form action="{{ url_for('editRestaurant', restaurant_id=restaurant_id) }}" method = 'POST'>
-                <input name='newName' type='text' placeholder="{{restaurant.name}}">
-                <input type='submit' value='Save' class='button'>
-                <a href = "{{ url_for('mainRestaurants') }}", class='button'>Cancel</a>
-            </form>
+        <div class="edit-container">
+            <div class="edit-form">
+                <h1>Edit {{restaurant.name}}</h1>
+                <form action="{{ url_for('editRestaurant', restaurant_id=restaurant_id) }}" method = 'POST'>
+                    <input name='newName' type='text' placeholder="{{restaurant.name}}">
+                    <input type='submit' value='Save' class='button-confirm'>
+                    <a href = "{{ url_for('mainRestaurants') }}", class='button-cancel'>Cancel</a>
+                </form>
+            </div>
         </div>
     </body>
 </html>

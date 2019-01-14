@@ -1,6 +1,6 @@
 <html>
     <head>
-        <link rel=stylesheet type=text/css href="{{ url_for('static', filename='itemsPage.css') }}">
+        <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
     </head>
     <body>
@@ -9,13 +9,14 @@
         </div>
         <a href="/restaurants/new", class='add'><i class="fas fa-plus"></i></a>
         <div class="restaurants-container">
-
+            
             {% for r in restaurants %}
             <div class='restaurant'>
                 <p>{{r.name}}</p>
                 <div id='links'>
-                    <a href = "{{ url_for('editRestaurant', restaurant_id = r.id) }}">Edit</a>
-                    <a href = "{{ url_for('deleteRestaurant', restaurant_id = r.id) }}">Delete</a>
+                        <a href = "{{ url_for('showMenu', restaurant_id = r.id) }}", class='button-normal'>Menu</a>
+                        <a href = "{{ url_for('editRestaurant', restaurant_id = r.id) }}", class='button-normal'>Edit</a>
+                        <a href = "{{ url_for('deleteRestaurant', restaurant_id = r.id) }}", class='button-cancel'>Delete</a>
                 </div>
             </div>
             {% endfor %}

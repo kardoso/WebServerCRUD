@@ -1,0 +1,159 @@
+body{
+    margin: 0 auto;
+    background-image: linear-gradient(to bottom right, #80348F, #A73399, #CD338C);
+}
+
+.header {
+    margin: 0 auto;
+    text-align: center;
+    vertical-align: center;
+    color: white;
+    background: rgba(38, 0, 31, 0.9);
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1;
+}
+
+.add{
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    margin: 0 auto;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.4);
+    color: aa3398;
+    margin-top: 100px;
+    border-radius: 25px;
+    width: 10%;
+    min-height: 100px;
+    min-width: 200px;
+    display: flex;
+    font-size: 32px;
+    text-decoration: none;
+    justify-content: center;
+}
+.add:hover{
+    background-color: #318b55 ;
+    color: #ffffff;
+    font-size: 48px;
+}
+
+.restaurants-container{
+    margin: 0 auto;
+    width: 80%;
+    display: flex;
+    flex-flow: wrap;
+    justify-content: center;
+}
+
+.edit-container{
+    margin: 0 auto;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.restaurant {
+    background: rgba(0, 0, 0, 0.4);
+    box-shadow: 0 1px 9px 0 rgba(0, 0, 0, 0.2);
+    color: white;
+    font-weight: bold;
+    border-radius: 25px;
+    margin: 0.5em;
+    min-height: 150px;
+    flex: 0 1 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.restaurant #links {
+    align-self: flex-end;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.edit-form{
+    background: rgba(0, 0, 0, 0.4);
+    box-shadow: 0 1px 9px 0 rgba(0, 0, 0, 0.2);
+    color: white;
+    font-weight: bold;
+    border-radius: 25px;
+    height: 200px;
+    min-height: 100px;
+    width: 40%;
+    min-width: 550px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-self: center;
+}
+
+.restaurant .button-confirm, 
+.restaurant .button-cancel,
+.restaurant .button-normal,
+.edit-form .button-confirm,
+.edit-form .button-cancel,
+.edit-form .button-normal {
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    background-color:#aa3398;
+    border: none;
+    outline: none;
+    color: white;
+    padding: 10px 14px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.edit-form .button-confirm,
+.edit-form .button-cancel,
+.edit-form .button-normal {
+    border-radius: 25px;
+    padding: 15px 32px;
+}
+
+.button-confirm:hover {
+    background-color: #33aa64;
+    border-radius: 25px;
+}
+
+.button-cancel:hover {
+    background-color: #d22223;
+    border-radius: 25px;
+}
+
+.button-normal:hover {
+    background-color: #ff23cd;
+    border-radius: 25px;
+}
+
+input[type=text] {
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    background-color: white;
+    border: none;
+    color: #26001F;
+    outline: none;
+    padding: 15px 32px;
+    border-radius: 15px;
+    text-align: center;
+    font-size: 16px;
+}
+
+input[type=text]:focus {
+    background-color: #26001F;
+    color: white;
+}
+
+::placeholder {
+    color: #26001F;
+}

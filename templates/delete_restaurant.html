@@ -1,14 +1,16 @@
 <html>
     <head>
-        <link rel=stylesheet type=text/css href="{{ url_for('static', filename='editPage.css') }}">
+        <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
     </head>
     <body>
-        <div class="container">
-            <h1>Delete {{restaurant.name}}?</h1>
-            <form action="{{ url_for('deleteRestaurant', restaurant_id=restaurant_id) }}" method = 'POST'>
-                <input type='submit', value = 'Delete', class='button'>
-                <a href = "{{ url_for('mainRestaurants') }}", class='button'> Cancel </a>
-            </form>
+        <div class="edit-container">
+            <div class="edit-form">
+                <h1>Delete {{restaurant.name}}?</h1>
+                <form action="{{ url_for('deleteRestaurant', restaurant_id=restaurant_id) }}" method = 'POST'>
+                    <input type='submit', value = 'Delete', class='button-cancel'>
+                    <a href = "{{ url_for('mainRestaurants') }}", class='button-confirm'> Cancel </a>
+                </form>
+            </div>
         </div>
     </body>
 </html>

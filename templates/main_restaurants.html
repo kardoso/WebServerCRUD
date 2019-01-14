@@ -7,16 +7,28 @@
         <div class="header">
             <h1>Restaurants</h1>
         </div>
-        <a href="/restaurants/new", class='add'><i class="fas fa-plus"></i></a>
+        <a href="/restaurants/new", class='add' title="New restaurant"><i class="fas fa-plus"></i></a>
         <div class="restaurants-container">
             
             {% for r in restaurants %}
             <div class='restaurant'>
                 <p>{{r.name}}</p>
                 <div id='links'>
-                        <a href = "{{ url_for('showMenu', restaurant_id = r.id) }}", class='button-normal'>Menu</a>
-                        <a href = "{{ url_for('editRestaurant', restaurant_id = r.id) }}", class='button-normal'>Edit</a>
-                        <a href = "{{ url_for('deleteRestaurant', restaurant_id = r.id) }}", class='button-cancel'>Delete</a>
+                    <a href = "{{ url_for('showMenu', restaurant_id = r.id) }}", class='button-normal'>
+                        <i class="fas fa-book">
+                            <p> Menu</p>
+                        </i>
+                    </a>
+                    <a href = "{{ url_for('editRestaurant', restaurant_id = r.id) }}", class='button-normal'>
+                        <i class="fas fa-edit">
+                            <p> Edit</p>
+                        </i>
+                    </a>
+                    <a href = "{{ url_for('deleteRestaurant', restaurant_id = r.id) }}", class='button-cancel'>
+                        <i class="fas fa-trash-alt">
+                            <p> Delete</p>
+                        </i>
+                    </a>
                 </div>
             </div>
             {% endfor %}

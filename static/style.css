@@ -94,6 +94,14 @@ body{
     align-self: center;
 }
 
+.button-normal p,
+.button-cancel p,
+.button-confirm p {
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    display: none;
+}
+
 .restaurant .button-confirm, 
 .restaurant .button-cancel,
 .restaurant .button-normal,
@@ -112,6 +120,12 @@ body{
     display: inline-block;
     font-size: 16px;
     cursor: pointer;
+}
+
+.button-normal:hover p,
+.button-cancel:hover p,
+.button-confirm:hover p{ 
+    display: inline
 }
 
 .edit-form .button-confirm,

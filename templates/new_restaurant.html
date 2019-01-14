@@ -1,6 +1,7 @@
 <html>
     <head>
         <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
     </head>
     <body>
         <div class="edit-container">
@@ -8,8 +9,16 @@
                 <h1>Register a new restaurant</h1>
                 <form action="{{ url_for('newRestaurant') }}" method = 'POST'>
                     <input name='name' type='text' placeholder="Restaurant name">
-                    <input type='submit' value='Register' class='button-confirm'>
-                    <a href = "{{ url_for('mainRestaurants') }}", class='button-cancel'>Cancel</a>
+                    <button type="submit" class='button-confirm'>
+                        <i class="fas fa-plus">
+                            <p> Register</p>
+                        </i>
+                    </button>
+                    <a href = "{{ url_for('mainRestaurants') }}", class='button-cancel'>
+                        <i class="fas fa-times">
+                            <p> Cancel</p>
+                        </i>
+                    </a>
                 </form>
             </div>
         </div>

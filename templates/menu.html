@@ -1,0 +1,35 @@
+<html>
+    <head>
+        <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    </head>
+    <body>
+        <div class="header">
+            <h1>Menu of {{restaurant.name}}</h1>
+        </div>
+        <a href="/restaurants/{{ restaurant_id }}/menu/new", class='add' title="New item"><i class="fas fa-plus"></i></a>
+        <div class="restaurants-container">
+            
+            {% for i in menu_items %}
+            <div class='restaurant'>
+                <p>{{i.name}}</p>
+                <p>{{i.description}}</p>
+                <p>{{i.price}}</p>
+                <div id='links'>
+                    <a href = "{{ url_for('editMenuItem', restaurant_id = restaurant.id, menu_id = i.id) }}", class='button-normal'>
+                        <i class="fas fa-edit">
+                            <p> Edit</p>
+                        </i>
+                    </a>
+                    <a href = "{{ url_for('deleteMenuItem', restaurant_id = restaurant.id, menu_id = i.id) }}", class='button-cancel'>
+                        <i class="fas fa-trash-alt">
+                            <p> Delete</p>
+                        </i>
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+
+        </div>
+    </body>
+</html>

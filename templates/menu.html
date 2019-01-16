@@ -7,7 +7,7 @@
         <div class="header">
             <h1>Menu of {{restaurant.name}}</h1>
         </div>
-        <a href="/restaurants/{{ restaurant_id }}/menu/new", class='add' title="New item"><i class="fas fa-plus"></i></a>
+        <a href="{{ url_for('newMenuItem', restaurant_id = restaurant.id) }}", class='add' title="New item"><i class="fas fa-plus"></i></a>
         <div class="restaurants-container">
             
             {% for i in menu_items %}

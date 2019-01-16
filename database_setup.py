@@ -30,6 +30,13 @@ class Restaurant(Base):
         primary_key=True
     )
 
+    @property
+    def serialize(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+        }
+
 
 class MenuItem(Base):
     # Tabelas
@@ -58,6 +65,16 @@ class MenuItem(Base):
         ForeignKey('restaurant.id')
     )
     restaurant = relationship(Restaurant)
+
+    @property
+    def serialize(self):
+        return {
+            'course': self.course,
+            'description': self.description,
+            'id': self.id,
+            'name': self.name,
+            'price': self.price,
+        }
 
 
 # Configuração

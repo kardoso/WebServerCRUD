@@ -19,6 +19,28 @@ DBSession = sessionmaker(bind=engine)
 session = DBSession()
 
 
+@app.route('/restaurants/JSON')
+def restaurantsJSON():
+    restaurants = session.query(Restaurant).all()
+    session.close()
+    return jsonify(Restaurants=[r.serialize for r in restaurants])
+
+
+@app.route('/restaurants/<int:restaurant_id>/menu/JSON')
+def restaurantMenuJSON(restaurant_id):
+    restaurant = session.query(Restaurant).filter_by(id=restaurant_id).one()
+    items = session.query(MenuItem).filter_by(restaurant_id=restaurant.id)
+    session.close()
+    return jsonify(MenuItems=[i.serialize for i in items])
+
+
+@app.route('/restaurants/<int:restaurant_id>/menu/<int:menu_id>/JSON')
+def menuItemJSON(restaurant_id, menu_id):
+    item = session.query(MenuItem).filter_by(id=menu_id).one()
+    session.close()
+    return jsonify(MenuItems=[item.serialize])
+
+
 @app.route('/')
 @app.route('/restaurants')
 def mainRestaurants():
@@ -35,7 +57,7 @@ def newRestaurant():
             session.add(newEntry)
             session.commit()
             session.close()
-            
+
             flash("New restaurant registered!")
         return redirect(url_for('mainRestaurants'))
     else:
@@ -81,6 +103,7 @@ def deleteRestaurant(restaurant_id):
                                restaurant_id=restaurant_id,
                                restaurant=restaurantToDelete)
 
+
 @app.route('/restaurants/<int:restaurant_id>/')
 @app.route('/restaurants/<int:restaurant_id>/menu')
 def showMenu(restaurant_id):
@@ -93,6 +116,7 @@ def showMenu(restaurant_id):
                             menu_items=items,
                             restaurant=restaurant,
                             restaurant_id=restaurant_id)
+
 
 @app.route('/restaurants/<int:restaurant_id>/menu/new', methods=['GET', 'POST'])
 def newMenuItem(restaurant_id):
@@ -116,6 +140,7 @@ def newMenuItem(restaurant_id):
     else:
         session.close()
         return render_template('new_item.html', restaurant_id=restaurant_id, restaurant_name=restaurant.name)
+
 
 @app.route('/restaurants/<int:restaurant_id>/menu/<int:menu_id>/edit', methods=['GET', 'POST'])
 def editMenuItem(restaurant_id, menu_id):
@@ -142,6 +167,7 @@ def editMenuItem(restaurant_id, menu_id):
     else:
         session.close()
         return render_template('edit_item.html', restaurant_id=restaurant_id, restaurant_name=restaurant.name, item=itemToEdit)
+
 
 @app.route('/restaurants/<int:restaurant_id>/menu/<int:menu_id>/delete', methods=['GET', 'POST'])
 def deleteMenuItem(restaurant_id, menu_id):

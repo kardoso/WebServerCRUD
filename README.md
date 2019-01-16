@@ -1,8 +1,17 @@
 # Web Server CRUD
 Um web server para acessar e manipular um banco de dados com operações CRUD através do navegador.
 
-O website acessa o banco de dados contendo nomes de restaurantes e os mostra na página `localhost:5000`<br>
-A partir dessa página é possível adicionar novos restaurantes ao banco de dados, editá-los e excluí-los.
+O website acessa o banco de dados contendo informações de restaurantes, menus e itens e os mostra na página `localhost:5000`<br>
+A partir do website é possível:
+- Adicionar novos restaurantes ao banco de dados, editá-los e excluí-los.
+- Adicionar novos itens ao banco de dados, editá-los e excluí-los.
+
+O website também contém uma API endpoint que envia um arquivo JSON com a lista dos restaurantes, o menu de um restaurante específico e informações sobre um item específico quando o cliente envia uma solicitação GET às seguintes URLs:
+- /restaurants/JSON
+- /restaurants/<restaurant_id>/menu/JSON
+- /restaurants/<restaurant_id>/menu/<menu_id>/JSON
+
+_Os itens dentro dos sinais de menor e maior devem ser números que representam o id do restaurante e o id do item_
 
 ## Requerimentos
 - [Python 3](https://www.python.org/downloads/release/python-371/)

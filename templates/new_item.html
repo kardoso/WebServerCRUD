@@ -7,12 +7,21 @@
         <div class="edit-container">
             <div class="edit-form">
                 <h1>Register a new item for {{restaurant_name}}</h1>
-                <form action="{{ url_for('newMenuItem') }}" method = 'POST'>
+                <form action="{{ url_for('newMenuItem', restaurant_id=restaurant_id) }}" method = 'POST'>
                     <input name='name' type='text' placeholder="Item name">
                     <br>
                     <input name='description' type='text' placeholder="Description ">
                     <br>
+                    <input name='course' type="text" list="courses" placeholder="Course"/>
+                    <datalist id="courses">
+                        <option>Appetizer</option>
+                        <option>Entree</option>
+                        <option>Dessert</option>
+                        <option>Beverage</option>
+                    </datalist>
+                    <br>
                     <input name='price' type='text' placeholder="Price: $1.99">
+                    <br>
                     <button type="submit" class='button-confirm'>
                         <i class="fas fa-plus">
                             <p> Register</p>

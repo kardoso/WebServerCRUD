@@ -12,7 +12,16 @@
                     <br>
                     <input name='description' type='text' placeholder="{{item.description}} ">
                     <br>
+                    <input name='course' type="text" list="courses" placeholder="Course"/>
+                    <datalist id="courses">
+                        <option>Appetizer</option>
+                        <option>Entree</option>
+                        <option>Dessert</option>
+                        <option>Beverage</option>
+                    </datalist>
+                    <br>
                     <input name='price' type='text' placeholder="{{item.price}}">
+                    <br>
                     <button type="submit" class='button-confirm'>
                         <i class="fas fa-check">
                             <p> Save</p>

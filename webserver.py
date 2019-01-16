@@ -123,7 +123,7 @@ def deleteMenuItem(restaurant_id, menu_id):
         session.delete(itemToDelete)
         session.commit()
         session.close()
-        return redirect(url_for('showMenu', restaurant_id))
+        return redirect(url_for('showMenu', restaurant_id=restaurant_id))
     else:
         session.close()
         return render_template('delete_item.html',

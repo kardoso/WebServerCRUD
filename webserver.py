@@ -35,6 +35,8 @@ def newRestaurant():
             session.add(newEntry)
             session.commit()
             session.close()
+            
+            flash("New restaurant registered!")
         return redirect(url_for('mainRestaurants'))
     else:
         session.close()
@@ -51,6 +53,8 @@ def editRestaurant(restaurant_id):
             session.add(restaurantToEdit)
             session.commit()
             session.close()
+
+            flash("Restaurant edited!")
         return redirect(url_for('mainRestaurants'))
     else:
         session.close()
@@ -68,6 +72,8 @@ def deleteRestaurant(restaurant_id):
         session.delete(restaurantToDelete)
         session.commit()
         session.close()
+
+        flash("Restaurant deleted!")
         return redirect(url_for('mainRestaurants'))
     else:
         session.close()
@@ -104,6 +110,8 @@ def newMenuItem(restaurant_id):
             session.add(newEntry)
             session.commit()
             session.close()
+
+            flash("New item registered!")
         return redirect(url_for('showMenu', restaurant_id=restaurant_id))
     else:
         session.close()
@@ -128,6 +136,8 @@ def editMenuItem(restaurant_id, menu_id):
             session.add(itemToEdit)
             session.commit()
             session.close()
+
+            flash("Item edited!")
         return redirect(url_for('showMenu', restaurant_id=restaurant_id))
     else:
         session.close()
@@ -143,6 +153,8 @@ def deleteMenuItem(restaurant_id, menu_id):
         session.delete(itemToDelete)
         session.commit()
         session.close()
+
+        flash("Item deleted!")
         return redirect(url_for('showMenu', restaurant_id=restaurant_id))
     else:
         session.close()

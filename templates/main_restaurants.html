@@ -8,8 +8,18 @@
             <h1>Restaurants</h1>
         </div>
         <a href="/restaurants/new", class='add' title="New restaurant"><i class="fas fa-plus"></i></a>
+        
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <ul>
+                    {% for message in messages %}
+                    <li><strong>{{message}}</strong></li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+
         <div class="restaurants-container">
-            
             {% for r in restaurants %}
             <div class='restaurant'>
                 <p>{{r.name}}</p>

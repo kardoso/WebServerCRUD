@@ -38,6 +38,25 @@ body{
     font-size: 48px;
 }
 
+.flash-message
+{
+    transition-duration: 0.4s;
+    margin: 0 auto;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.4);
+    color: greenyellow;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    border-radius: 25px;
+    width: 10%;
+    min-height: 50px;
+    min-width: 500px;
+    display: flex;
+    font-size: 32px;
+    text-decoration: none;
+    justify-content: center; 
+}
+
 .restaurants-container{
     margin: 0 auto;
     width: 80%;

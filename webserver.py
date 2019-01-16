@@ -98,7 +98,22 @@ def editMenuItem(restaurant_id, menu_id):
 
 @app.route('/restaurants/<int:restaurant_id>/menu/<int:menu_id>/delete')
 def deleteMenuItem(restaurant_id, menu_id):
-    return "delete item"
+    itemToDelete = session.query(
+        MenuItem).filter_by(
+        id=menu_id).one()
+    restaurant = itemToDelete.restaurant
+    if request.method == 'POST':
+        session.delete(itemToDelete)
+        session.commit()
+        session.close()
+        return redirect(url_for('showMenu', restaurant_id))
+    else:
+        session.close()
+        return render_template('delete_item.html',
+                               restaurant_id=restaurant_id,
+                               restaurant_name=restaurant.name,
+                               item=itemToDelete)
+
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))

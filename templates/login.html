@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!--PRE-REQUISITES FOR GOOGLE SIGN IN -->
+        <meta name="google-signin-client_id" content="873496404208-g0jucsost9tr60sdhfdpqqs84dfem99l.apps.googleusercontent.com">
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+        <script src="https://apis.google.com/js/platform.js" async defer></script>
+    </head>
+
+
+    <body>
+        <!-- GOOGLE PLUS SIGN IN BUTTON -->
+        <div id="signinButton">
+            <span class="g-signin2"
+            data-scope="openid email"
+            data-clientid="873496404208-g0jucsost9tr60sdhfdpqqs84dfem99l.apps.googleusercontent.com"
+            data-redirect_uri="postmessage"
+            data-accesstype="offline"
+            data-cookiepolicy="single_host_origin"
+            data-onsuccess="onSignIn"
+            data-onfailure="onSignInFailure">
+            </span>
+        </div>
+        <div id="result"></div>
+
+        <script>
+            function onSignIn(authResult){
+                $('#signinButton').attr('style', 'display: none');
+                $.ajax({
+                    type: 'POST',
+                    url: '/gconnect?state={{STATE}}',
+                    processData: false,
+                    contentType: 'application/octet-stream; charset=utf-8',
+                    data: authResult['code'],
+                    success: function(result){
+                        if(result){
+                            $('#result').html('Login Successful!</br>'+result+'</br>Redirecting...')
+                            setTimeout(function(){
+                                window.location.href = "/restaurants";
+                            }, 2000);
+                        }
+                        else if(authResult['error']){
+                            alert("Erro ao efetuar login. Erro " + result.status);
+                            console.log("There was an error: "+authResult['error']);
+                        }
+                    }
+                });
+            }
+
+            function onSignInFailure(){
+                alert("Erro ao efetuar login");
+                window.location.href = "/restaurants";
+            }
+        </script>
+    </body>
+</html>

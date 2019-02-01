@@ -6,7 +6,7 @@ import os
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 # importar classes do arquivo "database_setup"
-from database_setup import Restaurant, Base, MenuItem
+from database_setup import Restaurant, Base, MenuItem, User
 
 from flask import (Flask, render_template,
                    request, redirect, url_for, flash, jsonify)

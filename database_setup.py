@@ -16,63 +16,57 @@ Base = declarative_base()
 # Classes
 
 
+class User(Base):
+    # Tabela
+    __tablename__ = 'user'
+
+    # Mapeadores
+    id = Column(Integer, primary_key=True)
+    name = Column(String(250), nullable=False)
+    email = Column(String(250), nullable=False)
+    picture = Column(String(250))
+
+
 class Restaurant(Base):
-    # Tabelas
+    # Tabela
     __tablename__ = 'restaurant'
 
     # Mapeadores
-    name = Column(
-        String(80),
-        nullable=False
-    )
-    id = Column(
-        Integer,
-        primary_key=True
-    )
+    name = Column(String(80), nullable=False)
+    id = Column(Integer, primary_key=True)
+    user_id = Column(Integer, ForeignKey('user.id'))
+    user = relationship(User)
 
     @property
     def serialize(self):
         return {
-            'id': self.id,
             'name': self.name,
+            'id': self.id,
         }
 
 
 class MenuItem(Base):
-    # Tabelas
+    # Tabela
     __tablename__ = 'menu_item'
 
     # Mapeadores
-    name = Column(
-        String(80),
-        nullable=False
-    )
-    id = Column(
-        Integer,
-        primary_key=True
-    )
-    course = Column(
-        String(250)
-    )
-    description = Column(
-        String(250)
-    )
-    price = Column(
-        String(250)
-    )
-    restaurant_id = Column(
-        Integer,
-        ForeignKey('restaurant.id')
-    )
+    name = Column(String(80), nullable=False)
+    id = Column(Integer, primary_key=True)
+    course = Column(String(250))
+    description = Column(String(250))
+    price = Column(String(250))
+    restaurant_id = Column(Integer, ForeignKey('restaurant.id'))
     restaurant = relationship(Restaurant)
+    user_id = Column(Integer, ForeignKey('user.id'))
+    user = relationship(User)
 
     @property
     def serialize(self):
         return {
-            'course': self.course,
+            'name': self.name,
             'description': self.description,
             'id': self.id,
-            'name': self.name,
+            'course': self.course,
             'price': self.price,
         }
 

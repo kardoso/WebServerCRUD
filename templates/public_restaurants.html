@@ -1,0 +1,39 @@
+<html>
+    <head>
+        <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    </head>
+    <body>
+        <div class="header">
+            <h1>Restaurants</h1>
+        </div>
+
+        <p style="margin-top: 100px;"></p>
+        
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <ul class='flash-message'>
+                    {% for message in messages %}
+                    <li><strong>{{message}}</strong></li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+
+        <div class="restaurants-container">
+            {% for r in restaurants %}
+            <div class='restaurant'>
+                <p>{{r.name}}</p>
+                <div id='links'>
+                    <a href = "{{ url_for('showMenu', restaurant_id = r.id) }}", class='button-normal'>
+                        <i class="fas fa-book">
+                            <p> Menu</p>
+                        </i>
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+
+        </div>
+    </body>
+</html>

@@ -7,7 +7,7 @@
         <div class="header">
             <h1>Menu of {{restaurant.name}}</h1>
         </div>
-        <a href="{{ url_for('newMenuItem', restaurant_id = restaurant.id) }}", class='add' title="New item"><i class="fas fa-plus"></i></a>
+        <p style="margin-top: 100px;"></p>
         
         {% with messages = get_flashed_messages() %}
             {% if messages %}
@@ -34,18 +34,6 @@
                 <p>{{i.name}}</p>
                 <p>{{i.description}}</p>
                 <p>{{i.price}}</p>
-                <div id='links'>
-                    <a href = "{{ url_for('editMenuItem', restaurant_id = restaurant.id, menu_id = i.id) }}", class='button-normal'>
-                        <i class="fas fa-edit">
-                            <p> Edit</p>
-                        </i>
-                    </a>
-                    <a href = "{{ url_for('deleteMenuItem', restaurant_id = restaurant.id, menu_id = i.id) }}", class='button-cancel'>
-                        <i class="fas fa-trash-alt">
-                            <p> Delete</p>
-                        </i>
-                    </a>
-                </div>
             </div>
             {% endfor %}
 

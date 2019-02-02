@@ -18,10 +18,12 @@
             data-accesstype="offline"
             data-cookiepolicy="single_host_origin"
             data-onsuccess="onSignIn"
-            data-onfailure="onSignInFailure">
+            data-onfailure="onSignInFailure"
+            data-approvalprompt="force">
             </span>
         </div>
         <div id="result"></div>
+        <a id="signoutButton" href="#" onclick="signOut();">Sign out</a>
 
         <script>
             function onSignIn(authResult){
@@ -34,13 +36,13 @@
                     data: authResult['code'],
                     success: function(result){
                         if(result){
+                            $('#signoutButton').attr('style', 'display: none');
                             $('#result').html('Login Successful!</br>'+result+'</br>Redirecting...')
                             setTimeout(function(){
                                 window.location.href = "/restaurants";
                             }, 2000);
                         }
                         else if(authResult['error']){
-                            alert("Erro ao efetuar login. Erro " + result.status);
                             console.log("There was an error: "+authResult['error']);
                         }
                     }
@@ -50,6 +52,29 @@
             function onSignInFailure(){
                 alert("Erro ao efetuar login");
                 window.location.href = "/restaurants";
+            }
+
+            function signOut() {
+                var auth2 = gapi.auth2.getAuthInstance();
+                auth2.signOut().then(function (){
+                    console.log('User signed out.');
+                });
+                
+                $.ajax({
+                    type: 'GET',
+                    url: '/gdisconnect',
+                    processData: false,
+                    contentType: 'application/octet-stream; charset=utf-8',
+                    success: function(result){
+                        if(result){
+                            $('#signoutButton').attr('style', 'display: none');
+                            $('#result').html(result+'</br>Redirecting...')
+                            setTimeout(function(){
+                                window.location.href = "/restaurants";
+                            }, 2000);
+                        }
+                    }
+                });
             }
         </script>
     </body>

@@ -21,6 +21,8 @@ import json
 from flask import make_response
 import requests
 
+import hashlib
+
 app = Flask(__name__)
 
 CLIENT_ID = json.loads(
@@ -37,8 +39,10 @@ session = DBSession()
 #Token antifraude
 @app.route('/login')
 def showLogin():
-    state = ''.join(random.choice(string.ascii_uppercase + string.digits)
-                    for x in range(32))
+    #state = ''.join(random.choice(string.ascii_uppercase + string.digits)
+     #               for x in range(32))
+    #login_session['state'] = state
+    state = hashlib.sha256(os.urandom(1024)).hexdigest()
     login_session['state'] = state
     return render_template('login.html', STATE=state)
     #return "The current session state is %s" % login_session['state']
@@ -50,6 +54,7 @@ def gconnect():
     if request.args.get('state') != login_session['state']:
         response = make_response(json.dumps('Invalid state parameter.'), 401)
         response.headers['Content-Type'] = 'application/json'
+        print('invalid state')
         return response
     # Obtain authorization code
     code = request.data
@@ -63,6 +68,7 @@ def gconnect():
         response = make_response(
             json.dumps('Failed to upgrade the authorization code.'), 401)
         response.headers['Content-Type'] = 'application/json'
+        print('failed authorization')
         return response
 
     # Check that the access token is valid.
@@ -70,7 +76,10 @@ def gconnect():
     url = ('https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=%s'
            % access_token)
     h = httplib2.Http()
-    result = json.loads(h.request(url, 'GET')[1])
+    #result = json.loads(h.request(url, 'GET')[1])
+    response = h.request(url, 'GET')[1]
+    str_response = response.decode('utf-8')
+    result = json.loads(str_response)
     # If there was an error in the access token info, abort.
     if result.get('error') is not None:
         response = make_response(json.dumps(result.get('error')), 500)
@@ -111,11 +120,15 @@ def gconnect():
     answer = requests.get(userinfo_url, params=params)
 
     #data = answer.json()
-    data = json.loads(answer.text)
+    data = answer.json()
 
     login_session['username'] = data['name']
     login_session['picture'] = data['picture']
     login_session['email'] = data['email']
+
+    # check if user exists, if not create a new one
+    if not getUserID(login_session['email']):
+        login_session['user_id'] = createUser(login_session)
 
     flash("You are now logged in as %s" % login_session['username'])
     output = ''
@@ -127,6 +140,29 @@ def gconnect():
     output += ' " style = "width: 300px; height: 300px;border-radius: 150px;-webkit-border-radius: 150px;-moz-border-radius: 150px;"> '
     print ("done!")
     return output
+
+
+# User Helper Functions
+def createUser(login_session):
+    newUser = User(name=login_session['username'], email=login_session[
+                   'email'], picture=login_session['picture'])
+    session.add(newUser)
+    session.commit()
+    user = session.query(User).filter_by(email=login_session['email']).one()
+    return user.id
+
+
+def getUserInfo(user_id):
+    user = session.query(User).filter_by(id=user_id).one()
+    return user
+
+
+def getUserID(email):
+    try:
+        user = session.query(User).filter_by(email=email).one()
+        return user.id
+    except:
+        return None
 
 
 @app.route('/gdisconnect')
@@ -186,8 +222,16 @@ def menuItemJSON(restaurant_id, menu_id):
 @app.route('/restaurants')
 def mainRestaurants():
     restaurants = session.query(Restaurant).all()
+
+    pageToLoad = ''
+    if getUserID(login_session.get('email')):
+        pageToLoad = "main_restaurants.html"
+    else:
+        pageToLoad = "public_restaurants.html"
+
     session.close()
-    return render_template("main_restaurants.html", restaurants=restaurants)
+
+    return render_template(pageToLoad, restaurants=restaurants)
 
 
 @app.route('/restaurants/new', methods=['GET', 'POST'])
@@ -196,7 +240,8 @@ def newRestaurant():
         return redirect('/login')
     if request.method == 'POST':
         if request.form['name']:
-            newEntry = Restaurant(name=request.form['name'])
+            newEntry = Restaurant(name=request.form['name'],
+                user_id=login_session['user_id'])
             session.add(newEntry)
             session.commit()
             session.close()
@@ -258,11 +303,22 @@ def showMenu(restaurant_id):
         Restaurant).filter_by(
         id=restaurant_id).one()
     items = session.query(MenuItem).filter_by(restaurant_id=restaurant_id).all()
+
+    creator = getUserInfo(restaurant.user_id)
+    
+    pageToLoad = ''
+    if login_session.get('email') == creator.email:
+        pageToLoad = "menu.html"
+    else:
+        pageToLoad = "public_menu.html"
+
     session.close()
-    return render_template("menu.html",
+
+    return render_template(pageToLoad,
                             menu_items=items,
                             restaurant=restaurant,
-                            restaurant_id=restaurant_id)
+                            restaurant_id=restaurant_id,
+                            creator=creator)
 
 
 @app.route('/restaurants/<int:restaurant_id>/menu/new', methods=['GET', 'POST'])
@@ -278,7 +334,8 @@ def newMenuItem(restaurant_id):
                                 description=request.form['description'],
                                 course=request.form['course'],
                                 price=request.form['price'],
-                                restaurant=restaurant)
+                                restaurant=restaurant,
+                                user_id=restaurant.user_id)
 
             session.add(newEntry)
             session.commit()
@@ -344,12 +401,9 @@ def deleteMenuItem(restaurant_id, menu_id):
 
 
 if __name__ == '__main__':
-    #GOOGLE_CLIENT_ID = os.environ.get['SPAM']
-    #GOOGLE_CLIENT_ID = os.environ['SPAM']
     port = int(os.environ.get('PORT', 8080))
     app.config.from_mapping(
         SECRET_KEY = os.environ.get('SECRET_KEY') or 'dev_key'
-        #SECRET_KEY = "NH4R9vhyYIJyvSu8v7dU1GDk"
     )
     app.debug = True
     app.run(host='0.0.0.0', port=port)

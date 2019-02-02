@@ -57,6 +57,51 @@ body{
     justify-content: center; 
 }
 
+.creator-container{
+    margin: 0 auto;
+    height: 200px;
+    width: 100%;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+}
+
+.creator-container h1{
+    margin: 0 auto;
+    height:10%;
+    width: 100%;
+    color: aliceblue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-self: center;
+}
+
+.creator-container p{
+    margin: 0 auto;
+    font-size: 24px;
+    height: 5%;
+    width: 100%;
+    color: aliceblue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-self: center;
+}
+
+.creator-container img{
+    margin: 0 auto;
+    height: 60px;
+    width: 60px;
+    border-radius: 50px;
+    border-color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-self: center;
+}
+
+
 .restaurants-container{
     margin: 0 auto;
     width: 80%;
